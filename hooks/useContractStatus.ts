@@ -1,5 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
+import { useVisibilityInterval } from '@/hooks/useVisibilityInterval';
 
 interface ContractStatusData {
   isHealthy: boolean;
@@ -41,26 +42,14 @@ export function useContractStatus() {
   const [data, setData] = useState<ContractStatusData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    async function poll() {
-      setIsLoading(true);
-      const result = await fetchContractStatus();
-      if (!cancelled) {
-        setData(result);
-        setIsLoading(false);
-      }
-    }
-
-    poll();
-    const interval = setInterval(poll, POLL_INTERVAL_MS);
-
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
+  const poll = useCallback(async () => {
+    setIsLoading(true);
+    const result = await fetchContractStatus();
+    setData(result);
+    setIsLoading(false);
   }, []);
+
+  useVisibilityInterval(poll, POLL_INTERVAL_MS, { runOnVisible: true });
 
   return {
     isPaused: data?.isPaused ?? false,

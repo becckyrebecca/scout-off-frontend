@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useVisibilityInterval } from '@/hooks/useVisibilityInterval';
 import {
   decodeHorizonOperation,
   type EventType,
@@ -257,6 +258,13 @@ export function useContractEvents(contractId?: string) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract]);
-
+  useVisibilityInterval(
+    () => {
+      if (!pollFnRef.current) return;
+      void pollFnRef.current();
+    },
+    POLL_INTERVAL,
+    { runOnVisible: true },
+  );
   return { events, isLive };
 }
