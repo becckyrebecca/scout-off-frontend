@@ -102,7 +102,32 @@
     "any_position": "Tous les postes",
     "save_search_placeholder": "ex. attaquants de Lagos",
     "rateLimited": "Recherches trop rapides — veuillez patienter {seconds, plural, one {# seconde} other {# secondes}} et réessayer.",
-    "rateLimitedNoRetry": "Recherches trop rapides — veuillez ralentir et réessayer."
+    "rateLimitedNoRetry": "Recherches trop rapides — veuillez ralentir et réessayer.",
+    "activityFeed": {
+      "title": "Fil d’activité",
+      "live": "En direct",
+      "empty": "Aucune activité récente.",
+      "fallback": {
+        "player": "Joueur",
+        "scout": "Un recruteur",
+        "aPlayer": "un joueur",
+        "milestone": "étape",
+        "aMilestone": "une étape"
+      },
+      "events": {
+        "player_registered": "{player} s’est inscrit",
+        "profile_updated": "{player} a mis à jour son profil",
+        "milestone_approved": "{scout} a approuvé {milestone}",
+        "milestone_revoked": "{milestone} révoqué pour {player}",
+        "trial_offer_logged": "{player} a reçu une offre d’essai",
+        "scout_subscribed": "{scout} s’est abonné",
+        "scout_subscribed_tier": "{scout} s’est abonné ({tier})",
+        "player_contacted": "{scout} a contacté {player}",
+        "fees_withdrawn": "Frais de plateforme retirés",
+        "fees_withdrawn_amount": "Frais de plateforme retirés ({amount} XLM)",
+        "unknown": "Événement"
+      }
+    }
   },
   "trial_offer": {
     "form_label": "Enregistrer une offre d'essai",
@@ -174,6 +199,37 @@
           "description": "Niveau Élite atteint, le plus haut niveau de progression."
         }
       }
+    },
+    "milestoneTimeline": {
+      "timelineLabel": "Chronologie de progression des niveaux",
+      "levelAchieved": "{level}, atteint le {date}",
+      "levelNotReached": "{level}, pas encore atteint",
+      "expandAchieved": "{level}, atteint le {date}. Afficher les détails",
+      "collapseAchieved": "{level}, atteint le {date}. Masquer les détails",
+      "expandLevel": "{level}. Afficher les détails",
+      "collapseLevel": "{level}. Masquer les détails",
+      "badgeTooltip": "Validateur : {validator} · Approuvé le : {date}",
+      "notYetReached": "Pas encore atteint",
+      "detailsFor": "Détails pour {level}",
+      "profileCreated": "Profil créé sur la blockchain. Aucun validateur requis.",
+      "approvedBy": "Approuvé par {address}",
+      "verifiedBy": "Vérifié par",
+      "dateLabel": "Date :",
+      "disputePending": "Contestation en attente d’examen",
+      "disputeUnderReview": "Contestation en cours d’examen",
+      "disputeEscalated": "Contestation transmise à l’administrateur",
+      "disputeUpheld": "Contestation examinée — décision maintenue",
+      "disputeReversed": "Contestation examinée — étape annulée",
+      "disputeMilestone": "Contester cette étape",
+      "noMilestoneData": "Aucune donnée d’étape pour le moment."
+    },
+    "mediaGallery": {
+      "removedLabel": "Média supprimé par la modération",
+      "removedText": "Ce média a été supprimé pour violation des règles de ScoutOff.",
+      "playVideo": "Lire la vidéo",
+      "reconnecting": "Reconnexion…",
+      "unavailableRetry": "Indisponible — Réessayer",
+      "imageAlt": "Média IPFS {cid}"
     }
   },
   "spending_summary": {
@@ -977,6 +1033,23 @@
       "label": "Exporter en CSV",
       "exporting": "Exportation…",
       "error": "Impossible d'exporter les contacts."
+    },
+    "referralPanel": {
+      "title": "Parrainer un collègue",
+      "statsError": "Échec du chargement des statistiques de parrainage.",
+      "generateError": "Échec de la génération du lien d’invitation. Veuillez réessayer.",
+      "loadingStats": "Chargement des statistiques",
+      "referralCount": "{count, plural, one {# parrainage} other {# parrainages}}",
+      "description": "Partagez votre lien d’invitation personnel. Lorsqu’un nouveau recruteur s’inscrit avec votre lien, un parrainage vous est crédité.",
+      "generating": "Génération…",
+      "generate": "Générer un lien d’invitation",
+      "exportCsv": "Exporter en CSV",
+      "loadingCodes": "Chargement de vos liens d’invitation…",
+      "emptyCodes": "Vos liens d’invitation générés apparaîtront ici.",
+      "copyLabel": "Copier le lien d’invitation du code {code}",
+      "copy": "Copier",
+      "copied": "Copié !",
+      "showMore": "Afficher plus ({count} restants)"
     }
   }
 }

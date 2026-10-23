@@ -169,7 +169,32 @@
     "any_position": "Nafasi yoyote",
     "save_search_placeholder": "mf. washambuliaji wa Lagos",
     "rateLimited": "Unatafuta haraka mno — tafadhali subiri {seconds, plural, one {sekunde #} other {sekunde #}} kisha ujaribu tena.",
-    "rateLimitedNoRetry": "Unatafuta haraka mno — tafadhali punguza kasi kisha ujaribu tena."
+    "rateLimitedNoRetry": "Unatafuta haraka mno — tafadhali punguza kasi kisha ujaribu tena.",
+    "activityFeed": {
+      "title": "Mlisho wa Shughuli",
+      "live": "Moja kwa moja",
+      "empty": "Hakuna shughuli za hivi karibuni.",
+      "fallback": {
+        "player": "Mchezaji",
+        "scout": "Skauti",
+        "aPlayer": "mchezaji",
+        "milestone": "hatua",
+        "aMilestone": "hatua"
+      },
+      "events": {
+        "player_registered": "{player} amejisajili",
+        "profile_updated": "{player} amesasisha wasifu wake",
+        "milestone_approved": "{scout} ameidhinisha {milestone}",
+        "milestone_revoked": "{milestone} imebatilishwa kwa {player}",
+        "trial_offer_logged": "{player} amepokea ofa ya majaribio",
+        "scout_subscribed": "{scout} amejisajili kwa usajili",
+        "scout_subscribed_tier": "{scout} amejisajili kwa usajili ({tier})",
+        "player_contacted": "{scout} amewasiliana na {player}",
+        "fees_withdrawn": "Ada za jukwaa zimetolewa",
+        "fees_withdrawn_amount": "Ada za jukwaa zimetolewa ({amount} XLM)",
+        "unknown": "Tukio"
+      }
+    }
   },
   "trial_offer": {
     "form_label": "Rekodi ofa ya majaribio",
@@ -241,6 +266,37 @@
           "description": "Umefikia Kiwango cha Juu, kiwango cha juu zaidi cha maendeleo."
         }
       }
+    },
+    "milestoneTimeline": {
+      "timelineLabel": "Ratiba ya maendeleo ya viwango",
+      "levelAchieved": "{level}, imefikiwa {date}",
+      "levelNotReached": "{level}, bado haijafikiwa",
+      "expandAchieved": "{level}, imefikiwa {date}. Panua maelezo",
+      "collapseAchieved": "{level}, imefikiwa {date}. Kunja maelezo",
+      "expandLevel": "{level}. Panua maelezo",
+      "collapseLevel": "{level}. Kunja maelezo",
+      "badgeTooltip": "Mthibitishaji: {validator} · Imeidhinishwa: {date}",
+      "notYetReached": "Bado haijafikiwa",
+      "detailsFor": "Maelezo ya {level}",
+      "profileCreated": "Wasifu umeundwa kwenye blockchain. Hakuna mthibitishaji anayehitajika.",
+      "approvedBy": "Imeidhinishwa na {address}",
+      "verifiedBy": "Imethibitishwa na",
+      "dateLabel": "Tarehe:",
+      "disputePending": "Pingamizi linasubiri ukaguzi",
+      "disputeUnderReview": "Pingamizi linakaguliwa",
+      "disputeEscalated": "Pingamizi limepelekwa kwa msimamizi",
+      "disputeUpheld": "Pingamizi limekaguliwa — uamuzi umedumishwa",
+      "disputeReversed": "Pingamizi limekaguliwa — hatua imebatilishwa",
+      "disputeMilestone": "Pinga hatua hii",
+      "noMilestoneData": "Bado hakuna data ya hatua."
+    },
+    "mediaGallery": {
+      "removedLabel": "Media imeondolewa na udhibiti",
+      "removedText": "Media hii iliondolewa kwa kukiuka sera za ScoutOff.",
+      "playVideo": "Cheza video",
+      "reconnecting": "Inaunganisha upya…",
+      "unavailableRetry": "Haipatikani — Jaribu tena",
+      "imageAlt": "Media ya IPFS {cid}"
     }
   },
   "spending_summary": {
@@ -977,6 +1033,23 @@
       "label": "Hamisha CSV",
       "exporting": "Inahamisha…",
       "error": "Imeshindwa kuhamisha anwani."
+    },
+    "referralPanel": {
+      "title": "Mpendekeze Mwenzako",
+      "statsError": "Imeshindwa kupakia takwimu za rufaa.",
+      "generateError": "Imeshindwa kuunda kiungo cha mwaliko. Tafadhali jaribu tena.",
+      "loadingStats": "Inapakia takwimu",
+      "referralCount": "{count, plural, one {rufaa #} other {rufaa #}}",
+      "description": "Shiriki kiungo chako binafsi cha mwaliko. Skauti mpya akijisajili kwa kutumia kiungo chako, utapewa rufaa.",
+      "generating": "Inaunda…",
+      "generate": "Unda Kiungo cha Mwaliko",
+      "exportCsv": "Hamisha kama CSV",
+      "loadingCodes": "Inapakia viungo vyako vya mwaliko…",
+      "emptyCodes": "Viungo vyako vya mwaliko vilivyoundwa vitaonekana hapa.",
+      "copyLabel": "Nakili kiungo cha mwaliko cha msimbo {code}",
+      "copy": "Nakili",
+      "copied": "Imenakiliwa!",
+      "showMore": "Onyesha zaidi ({count} zimebaki)"
     }
   }
 }
