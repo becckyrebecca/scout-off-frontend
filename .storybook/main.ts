@@ -41,6 +41,15 @@ const config: StorybookConfig = {
       // (e.g. ValidatorChip). See .storybook/mocks/lib-contract.ts.
       '@/lib/contract': path.resolve(dirname, './mocks/lib-contract.ts'),
       '@/lib/api': path.resolve(dirname, './mocks/lib-api.ts'),
+      // Data hooks behind SpendingSummary — see .storybook/mocks/spending-hooks.ts.
+      '@/hooks/useSpendingSummary': path.resolve(
+        dirname,
+        './mocks/spending-hooks.ts',
+      ),
+      '@/hooks/useFeeDriftDetection': path.resolve(
+        dirname,
+        './mocks/spending-hooks.ts',
+      ),
     };
     return config;
   },

@@ -901,6 +901,11 @@
           "title": "Elite"
         }
       }
+    },
+    "export_csv": {
+      "label": "Export CSV",
+      "exporting": "Exporting…",
+      "error": "Could not export contacts."
     }
   }
 }
