@@ -88,7 +88,13 @@
     "scroll_to_top": "Rudi juu",
     "cookie_consent": "Idhini ya vidakuzi",
     "close_consent_banner": "Funga bango la idhini",
-    "confirm": "Thibitisha"
+    "confirm": "Thibitisha",
+    "data_freshness": {
+      "title": "Upya wa data ya kiorodheshaji",
+      "updated": "Imesasishwa {time}",
+      "updated_stale": "Imesasishwa {time} · data inaweza kuwa imepitwa na wakati",
+      "pending_write": "Mabadiliko yako yanaweza kuchukua hadi dakika moja kuonekana"
+    }
   },
   "language": {
     "select_language": "Chagua Lugha",
@@ -191,7 +197,51 @@
   },
   "player_profile": {
     "back_to_scout_dashboard": "← Rudi kwenye Dashibodi ya Scout",
-    "verified_on_chain": "Imethibitishwa kwenye blockchain"
+    "verified_on_chain": "Imethibitishwa kwenye blockchain",
+    "media_report": {
+      "report": "Ripoti",
+      "title": "Ripoti maudhui haya",
+      "thanks": "Asante — wasimamizi wetu watakagua maudhui haya.",
+      "reason": "Sababu",
+      "details": "Maelezo (si lazima)",
+      "ipfs_notice": "Uondoaji unatumika kwa ScoutOff pekee. Maudhui yaliyohifadhiwa kwenye IPFS yanaweza kuendelea kupatikana kupitia lango za umma.",
+      "request_failed": "Ombi limeshindikana",
+      "request_failed_status": "Ombi limeshindikana (HTTP {status})",
+      "sending": "Inatuma…",
+      "submit": "Tuma ripoti",
+      "reasons": {
+        "nudity": "Uchi au maudhui ya ngono",
+        "violence": "Vurugu au umwagaji damu",
+        "impersonation": "Kujifanya mtu mwingine",
+        "copyright": "Ukiukaji wa hakimiliki",
+        "other": "Nyingine"
+      }
+    },
+    "achievement_badges": {
+      "label": "Beji za mafanikio",
+      "badges": {
+        "first_milestone": {
+          "label": "Hatua ya Kwanza",
+          "description": "Umepata hatua yako ya kwanza iliyothibitishwa kwenye mnyororo."
+        },
+        "milestone_collector": {
+          "label": "Mkusanyaji wa Hatua",
+          "description": "Umefikia {count, plural, one {hatua # iliyothibitishwa} other {hatua # zilizothibitishwa}}."
+        },
+        "milestone_master": {
+          "label": "Bingwa wa Hatua",
+          "description": "Umefikia {count, plural, one {hatua # iliyothibitishwa} other {hatua # zilizothibitishwa}}."
+        },
+        "profile_complete": {
+          "label": "Wasifu Kamili",
+          "description": "Taarifa muhimu, takwimu na video za vivutio zote zimejazwa."
+        },
+        "elite_tier": {
+          "label": "Kiwango cha Juu",
+          "description": "Umefikia Kiwango cha Juu, kiwango cha juu zaidi cha maendeleo."
+        }
+      }
+    }
   },
   "spending_summary": {
     "title": "Muhtasari wa Matumizi",
@@ -901,6 +951,27 @@
           "title": "Elite"
         }
       }
+    },
+    "contact_modal": {
+      "title": "Mawasiliano ya Mchezaji",
+      "confirming": "Inathibitisha muamala wa kulipia mawasiliano…",
+      "no_details": "Bado hakuna mawasiliano yaliyofunguliwa kwa mchezaji huyu.",
+      "email": "Barua pepe: {value}",
+      "phone": "Simu: {value}",
+      "telegram": "Telegram: {value}",
+      "copy": "Nakili",
+      "processing": "Inachakata…",
+      "pending_swap": "Jaribio la awali tayari limebadilisha malipo yako kuwa {xlm} XLM. Jaribu tena malipo ya mawasiliano bila kubadilisha tena.",
+      "retry_payment": "Jaribu malipo tena ({fee} XLM)",
+      "usdc_intro": "Huna XLM? Lipa ada ya mawasiliano kwa USDC. Kwanza inabadilishwa kuwa XLM katika muamala tofauti, kisha malipo ya mawasiliano yanatumwa.",
+      "getting_quote": "Inapata bei…",
+      "quote_summary": "Lipa ~{amount} USDC (inabadilishwa kuwa {fee} XLM)",
+      "quote_limit_valid": "Upeo wa {sendMax} USDC na utelezi wa {slippage}%. Bei ni halali kwa sekunde {seconds}.",
+      "quote_limit_expired": "Upeo wa {sendMax} USDC na utelezi wa {slippage}%. Muda wa bei umeisha.",
+      "max_slippage": "Utelezi wa juu",
+      "refresh_quote": "Onyesha upya bei",
+      "pay_with_usdc": "Lipa kwa USDC",
+      "quote_error": "Imeshindwa kupata bei"
     },
     "export_csv": {
       "label": "Hamisha CSV",
