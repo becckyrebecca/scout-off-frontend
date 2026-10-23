@@ -9,6 +9,7 @@ import {
   submitAndConfirmRevokeMilestone,
 } from '@/lib/contract';
 import { parseContractError } from '@/lib/contractErrorMessage';
+import { extractTxHash } from '@/lib/sorobanTx';
 import type { ValidatorInfo, Player } from '@/types';
 
 /** Fixed cache key — the validator list is global, not per-wallet. */
@@ -108,8 +109,7 @@ export function useValidator(walletAddress?: string | null) {
           signOnly,
         );
         const result = await signAndSubmit(xdr);
-        const hash =
-          typeof result === 'string' ? result : ((result as any)?.hash ?? null);
+        const hash = extractTxHash(result);
 
         // Invalidate the player cache so callers see updated progressLevel.
         await globalMutate(`player:${playerId}`);

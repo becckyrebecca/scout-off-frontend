@@ -6,6 +6,7 @@ import { useWallet } from '@/hooks/useWallet';
 import useIsPaused from '@/hooks/useIsPaused';
 import { buildRegisterPlayer } from '@/lib/contract';
 import { parseContractError } from '@/lib/contractErrorMessage';
+import { extractTxHash } from '@/lib/sorobanTx';
 import {
   parseBulkImportFile,
   detectFormat,
@@ -360,7 +361,8 @@ export default function BulkPlayerImport() {
         // they've already abandoned. The post-loop cancel handler resets
         // this row's "signing" state back to pending.
         if (cancelledRef.current) break;
-        const hash = await signAndSubmit(xdr);
+        const result = await signAndSubmit(xdr);
+        const hash = extractTxHash(result);
 
         setSubmissions((prev) => ({
           ...prev,
