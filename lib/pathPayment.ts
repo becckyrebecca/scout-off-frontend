@@ -24,6 +24,7 @@ import {
   pollTransaction,
   rpc,
 } from '@/lib/stellar';
+import { isMainnet } from '@/lib/network';
 import { withTimeoutSignal } from '@/lib/fetchTimeout';
 
 /** How long a Horizon quote stays usable. Also caps the swap tx's time bounds. */
@@ -38,7 +39,7 @@ const STROOPS_PER_UNIT = BigInt(10_000_000);
 /** Circle's USDC issuers. Override with NEXT_PUBLIC_USDC_ISSUER. */
 const USDC_ISSUER =
   process.env.NEXT_PUBLIC_USDC_ISSUER ||
-  (process.env.NEXT_PUBLIC_NETWORK === 'mainnet'
+  (isMainnet()
     ? 'GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN'
     : 'GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5');
 

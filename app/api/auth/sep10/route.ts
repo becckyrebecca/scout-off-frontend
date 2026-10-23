@@ -1,6 +1,5 @@
 import {
   WebAuth,
-  Networks,
   Keypair,
   StrKey,
   TransactionBuilder,
@@ -16,21 +15,22 @@ import {
   DEFAULT_REFRESH_TTL_SEC,
   REMEMBER_ME_REFRESH_TTL_SEC,
 } from '@/lib/session';
+import {
+  clearSessionCookies,
+  REFRESH_COOKIE,
+  SESSION_COOKIE,
+  setSessionCookies,
+} from '@/lib/sessionCookies';
 import { SessionStore } from '@/lib/sessionStore';
 import { Sep10NonceStore } from '@/lib/sep10NonceStore';
 import { withRouteTelemetry } from '@/lib/telemetry';
+import { getNetworkPassphrase } from '@/lib/network';
 
 // better-sqlite3 (via lib/sessionStore.ts) is a native addon and needs the
 // Node.js runtime, not edge.
 export const runtime = 'nodejs';
 
 const CHALLENGE_TIMEOUT_SEC = 300;
-
-function getNetworkPassphrase(): string {
-  return process.env.NEXT_PUBLIC_NETWORK === 'mainnet'
-    ? Networks.PUBLIC
-    : Networks.TESTNET;
-}
 
 // Same check as lib/stellar's isValidStellarAddress, without importing that
 // module's RPC client into the auth route. Only G-addresses pass; muxed
@@ -185,7 +185,6 @@ async function postSep10(req: NextRequest) {
     const maxAge = rememberMe
       ? REMEMBER_ME_REFRESH_TTL_SEC
       : DEFAULT_REFRESH_TTL_SEC;
-    const isProd = process.env.NODE_ENV === 'production';
 
     // A single session id ties this login's access and refresh tokens
     // together (and is carried forward across every future refresh
@@ -225,21 +224,10 @@ async function postSep10(req: NextRequest) {
     }
 
     const response = NextResponse.json({ success: true, maxAge });
-    response.cookies.set('session', accessToken, {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: 'strict',
-      path: '/',
-      maxAge: ACCESS_TOKEN_TTL_SEC,
-    });
-    // Scoped to /api/auth so it's only ever sent to the refresh/logout
-    // endpoints, not on every request the way `session` is.
-    response.cookies.set('session_refresh', refreshToken, {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: 'strict',
-      path: '/api/auth',
-      maxAge,
+    setSessionCookies(response, {
+      accessToken,
+      refreshToken,
+      refreshMaxAge: maxAge,
     });
     return withRequestId(response, log.requestId);
   } catch (error) {
@@ -317,8 +305,8 @@ async function getSep10(req: NextRequest) {
  * still cleared either way.
  */
 async function deleteSep10(req: NextRequest) {
-  const accessToken = req.cookies.get('session')?.value;
-  const refreshToken = req.cookies.get('session_refresh')?.value;
+  const accessToken = req.cookies.get(SESSION_COOKIE)?.value;
+  const refreshToken = req.cookies.get(REFRESH_COOKIE)?.value;
   const sid =
     (accessToken && verifySessionToken(accessToken, 'access')?.sid) ||
     (refreshToken && verifySessionToken(refreshToken, 'refresh')?.sid) ||
@@ -333,8 +321,7 @@ async function deleteSep10(req: NextRequest) {
   }
 
   const response = NextResponse.json({ success: true });
-  response.cookies.delete('session');
-  response.cookies.delete({ name: 'session_refresh', path: '/api/auth' });
+  clearSessionCookies(response);
   return response;
 }
 

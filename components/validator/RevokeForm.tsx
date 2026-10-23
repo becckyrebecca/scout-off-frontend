@@ -15,6 +15,7 @@ import {
 } from '@/lib/sorobanTx';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import type { Player } from '@/types';
+import { getExplorerTxUrl } from '@/lib/network';
 
 interface RevokeFormProps {
   player?: Player;
@@ -137,9 +138,7 @@ export default function RevokeForm({ player, onSuccess }: RevokeFormProps) {
   const renderConfirmationStatus = () => {
     if (!revokeState.txHash) return null;
 
-    const explorerUrl = `https://stellar.expert/explorer/${
-      process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'mainnet' : 'testnet'
-    }/tx/${revokeState.txHash}`;
+    const explorerUrl = getExplorerTxUrl(revokeState.txHash);
 
     switch (revokeState.confirmationState) {
       case 'confirming':

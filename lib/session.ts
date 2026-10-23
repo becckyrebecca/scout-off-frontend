@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { createHmac, timingSafeEqual, randomUUID } from 'crypto';
 import { SessionStore } from './sessionStore';
+import { SESSION_COOKIE } from './sessionCookies';
 
 // ─── Multi-key / key-rotation support (#1489) ────────────────────────────────
 //
@@ -290,7 +291,7 @@ export function verifySessionToken(
  * came from a completed SEP-10 flow (see #778).
  */
 export function getSessionWallet(req: NextRequest): string | null {
-  const token = req.cookies.get('session')?.value;
+  const token = req.cookies.get(SESSION_COOKIE)?.value;
   if (!token) return null;
   const payload = verifySessionToken(token, 'access');
   if (!payload) return null;
@@ -307,7 +308,7 @@ export function getSessionWallet(req: NextRequest): string | null {
  * mark the caller's own row distinctly so it isn't revoked by accident).
  */
 export function getSessionId(req: NextRequest): string | null {
-  const token = req.cookies.get('session')?.value;
+  const token = req.cookies.get(SESSION_COOKIE)?.value;
   if (!token) return null;
   const payload = verifySessionToken(token, 'access');
   if (!payload) return null;
