@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useVisibilityInterval } from '@/hooks/useVisibilityInterval';
 
 interface ContractStatusData {
@@ -41,12 +41,34 @@ async function fetchContractStatus(): Promise<ContractStatusData> {
 export function useContractStatus() {
   const [data, setData] = useState<ContractStatusData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
+  // Guards against setting state after unmount — a poll can still be in
+  // flight when the component goes away.
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  // isLoading only covers the first poll; later polls refresh silently and
+  // a failure keeps the last good data.
   const poll = useCallback(async () => {
-    setIsLoading(true);
-    const result = await fetchContractStatus();
-    setData(result);
-    setIsLoading(false);
+    try {
+      const result = await fetchContractStatus();
+      if (mountedRef.current) {
+        setData(result);
+        setError(null);
+      }
+    } catch (err) {
+      if (mountedRef.current) {
+        setError(err instanceof Error ? err : new Error(String(err)));
+      }
+    } finally {
+      if (mountedRef.current) setIsLoading(false);
+    }
   }, []);
 
   useVisibilityInterval(poll, POLL_INTERVAL_MS, { runOnVisible: true });
@@ -55,5 +77,6 @@ export function useContractStatus() {
     isPaused: data?.isPaused ?? false,
     isHealthy: data?.isHealthy ?? true,
     isLoading,
+    error,
   };
 }
