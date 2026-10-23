@@ -10,8 +10,17 @@
  *
  * Lifecycle: request.signal is forwarded upstream so the indexer connection
  * is aborted immediately when the browser disconnects (#1491).
+ *
+ * Issue #1478: the incoming `traceparent` (or a freshly minted one) is
+ * forwarded to the indexer so SSE connections are linked to the same
+ * distributed trace as the REST requests that precede them.
  */
 import { NextRequest } from 'next/server';
+import {
+  getOrCreateTraceContext,
+  outboundTraceparent,
+  TRACEPARENT_HEADER,
+} from '@/lib/traceContext';
 
 // Use the server-only variable so the internal indexer address is never
 // inlined into the client bundle (#1492). Fall back to the deprecated
@@ -89,6 +98,10 @@ export async function GET(request: NextRequest): Promise<Response> {
   const upstreamHeaders: HeadersInit = {
     Accept: 'text/event-stream',
   };
+
+  // Issue #1478: forward W3C trace context to the indexer.
+  const traceCtx = getOrCreateTraceContext(request.headers);
+  upstreamHeaders[TRACEPARENT_HEADER] = outboundTraceparent(traceCtx);
 
   const lastEventId = request.headers.get('last-event-id');
   if (lastEventId) {
