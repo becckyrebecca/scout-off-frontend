@@ -6,6 +6,9 @@
  */
 const VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
+/** Fail closed if Cloudflare doesn't answer within this many milliseconds. */
+export const TURNSTILE_TIMEOUT_MS = 5000;
+
 let warnedMissingSecretInProd = false;
 
 /** Test-only: reset the one-time production warning flag. */
@@ -36,10 +39,24 @@ export async function verifyTurnstileToken(
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params,
+      signal: AbortSignal.timeout(TURNSTILE_TIMEOUT_MS),
     });
-    const result = (await res.json()) as { success?: boolean };
+    if (!res.ok) {
+      console.warn('turnstile verify non-2xx', { status: res.status });
+      return false;
+    }
+    const result = (await res.json()) as {
+      success?: boolean;
+      'error-codes'?: string[];
+    };
+    if (result.success !== true) {
+      console.warn('turnstile rejected', { codes: result['error-codes'] });
+    }
     return result.success === true;
-  } catch {
+  } catch (err) {
+    console.warn('turnstile verify failed', {
+      reason: err instanceof Error ? err.name : 'unknown',
+    });
     return false;
   }
 }
